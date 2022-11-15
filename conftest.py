@@ -2,21 +2,20 @@ import os
 
 import pytest
 from selenium import webdriver
+
+
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 
 def pytest_addoption(parser):
-    parser.addoption(
-        "--browser", default="chrome"
-    )
+    parser.addoption("--browser", default="chrome")
+
     parser.addoption(
         "--driver_folder", default=os.path.expanduser("~/Downloads/drivers")
     )
-    parser.addoption(
-        "--headless", action="store_true"
-    )
+    parser.addoption("--headless", action="store_true")
 
 
 @pytest.fixture
@@ -29,19 +28,27 @@ def browser(request):
     if _browser == "firefox" or _browser == "ff":
         options = FirefoxOptions()
         options.headless = headless
-        driver = webdriver.Firefox(executable_path=f"{driver_folder}{os.sep}geckodriver", options=options)
+        driver = webdriver.Firefox(
+            executable_path=f"{driver_folder}{os.sep}geckodriver", options=options
+        )
     elif _browser == "chrome":
         options = ChromeOptions()
         options.headless = headless
-        driver = webdriver.Chrome(options=options, executable_path=f"{driver_folder}{os.sep}chromedriver")
+        driver = webdriver.Chrome(
+            options=options, executable_path=f"{driver_folder}{os.sep}chromedriver"
+        )
     elif _browser == "edge":
         options = EdgeOptions()
         options.headless = headless
-        driver = webdriver.Edge(executable_path=f"{driver_folder}{os.sep}msedgedriver", options=options)
+        driver = webdriver.Edge(
+            executable_path=f"{driver_folder}{os.sep}msedgedriver", options=options
+        )
     elif _browser == "yandex":
         options = ChromeOptions()
         options.headless = headless
-        driver = webdriver.Chrome(executable_path=f"{driver_folder}{os.sep}yandexdriver", options=options)
+        driver = webdriver.Chrome(
+            executable_path=f"{driver_folder}{os.sep}yandexdriver", options=options
+        )
     elif _browser == "safari":
         driver = webdriver.Safari()
 
